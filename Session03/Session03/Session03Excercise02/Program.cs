@@ -23,6 +23,69 @@ namespace Session03Excercise02
                 Console.WriteLine("Värdet är " + number);
             }
 
+
+
+
+
+
+
+
+
+
+            Console.WriteLine("Ange siffror, separerat med kommatecken");
+
+            var input = Console.ReadLine();
+            var inputArray = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
+
+
+            //Fungera med double.
+            double[] listaN = new double[inputArray.Length];
+            Console.WriteLine(listaN.ToString());
+            
+            
+            double total = 0;
+            double antalNummer = 0;
+
+            foreach (var nummer in inputArray)
+            {
+                double.TryParse(nummer, out double v);
+
+                total = total + v;
+                listaN[(int)antalNummer++] = v; ;
+            }
+
+            double minNummer = Convert.ToDouble(listaN.Min());
+            double maxNummer = listaN.Max();
+            double medelvärdet = total / antalNummer;
+
+            Console.WriteLine($"Listan innehåller {listaN.Length} siffror.");
+            Console.WriteLine($"Medelvärdet blir: {medelvärdet}");
+            Console.WriteLine($"Lägsta nummer: {listaN.ToArray().ToMin(}, Högsta nummer: {listaN.Max()}");
+
+            Console.ReadKey();
+
+            //*/
+
+            /*
+            List<int> nummerLista = new List<int>();
+            int total = 0;
+            int antalNummer = 0;
+
+             foreach (var nummer in inputArray)
+             {
+                    total = total + Convert.ToInt32(nummer);
+                    antalNummer++;
+                    nummerLista.Add(Convert.ToInt32(nummer));
+             }
+
+            int medelvärdet = total / antalNummer;
+
+            Console.WriteLine($"Medelvärdet blir: {medelvärdet}");
+            Console.WriteLine($"Lägsta nummer: {Convert.ToInt32(nummerLista.Min())}, Högsta nummer: {Convert.ToInt32(nummerLista.Max())}");
+
+            Console.ReadKey();
+            */
+
         }
     }
 }
