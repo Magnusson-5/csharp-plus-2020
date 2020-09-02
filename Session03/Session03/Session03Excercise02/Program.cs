@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 
 namespace Session03Excercise02
@@ -19,20 +20,35 @@ namespace Session03Excercise02
             Console.WriteLine("Ange ett antal siffror, separerat med kommatecken.");
 
             var input = Console.ReadLine();
-            var inputArray = input.Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            
-            double totalValue = 0;
 
-            for(int i = 0; i < inputArray.Length; i++)
+            string numbersOnly = Regex.Replace(input, "[^0-9.,-]", "");
+            var inputArray = numbersOnly.Split(new [] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            double totalValue = 0;
+            double minValue = Convert.ToDouble(inputArray[0], System.Globalization.CultureInfo.InvariantCulture);
+            double maxValue = Convert.ToDouble(inputArray[0], System.Globalization.CultureInfo.InvariantCulture);
+
+            foreach (var i in inputArray)
             {
-                if(i == num)
-                totalValue += Convert.ToDouble(inputArray[i], System.Globalization.CultureInfo.InvariantCulture);
+                
+                double number = Convert.ToDouble(i, System.Globalization.CultureInfo.InvariantCulture);
+                totalValue += number;
+
+                if(number > maxValue)
+                {
+                    maxValue = number;
+                }
+                if(number < minValue)
+                {
+                    minValue = number;
+                }
+
             }
+
             double averageNumber = totalValue / inputArray.Length;
 
-            
             Console.WriteLine($"Listan innehåller {inputArray.Length} siffror.");
-            Console.WriteLine($"Lägsta nummer: {inputArray.Min()}, Högsta nummer: {inputArray.Max()}");
+            Console.WriteLine($"Lägsta nummer: {minValue} Högsta nummer: {maxValue}");
             Console.WriteLine($"Medelvärdet blir: {averageNumber}");
         }
     }
